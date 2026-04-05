@@ -1,0 +1,27 @@
+@model VcgCollege.Web.Data.Entities.Course
+@{
+    ViewData["Title"] = "Assignments — " + Model.Name;
+}
+<h1 class="h3 mb-3">@Model.Name</h1>
+<p>
+    <a class="btn btn-primary" asp-action="Create" asp-route-courseId="@Model.Id">New assignment</a>
+    <a class="btn btn-secondary" asp-action="Index">All courses</a>
+</p>
+<div class="table-responsive vcg-table-wrap mb-3"><table class="table table-striped mb-0">
+    <thead><tr><th>Title</th><th>Due</th><th>Max</th><th></th></tr></thead>
+    <tbody>
+    @foreach (var a in Model.Assignments.OrderBy(x => x.DueDate))
+    {
+        <tr>
+            <td>@a.Title</td>
+            <td>@a.DueDate.ToString("d")</td>
+            <td>@a.MaxScore</td>
+            <td class="text-end text-nowrap">
+                <a asp-action="Results" asp-route-id="@a.Id">Gradebook</a> |
+                <a asp-action="Edit" asp-route-id="@a.Id">Edit</a> |
+                <a asp-action="Delete" asp-route-id="@a.Id" class="text-danger">Delete</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table></div>

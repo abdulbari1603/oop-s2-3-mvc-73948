@@ -1,0 +1,24 @@
+@model List<VcgCollege.Web.Data.Entities.Assignment>
+@{
+    ViewData["Title"] = "Assignments";
+    var results = ViewBag.Results as Dictionary<int, VcgCollege.Web.Data.Entities.AssignmentResult>;
+}
+<h1 class="h3 mb-3">Assignments</h1>
+<div class="table-responsive vcg-table-wrap mb-3"><table class="table table-striped mb-0">
+    <thead><tr><th>Course</th><th>Assignment</th><th>Due</th><th>Max</th><th>Your score</th><th>Feedback</th></tr></thead>
+    <tbody>
+    @foreach (var a in Model)
+    {
+        VcgCollege.Web.Data.Entities.AssignmentResult? r = null;
+        results?.TryGetValue(a.Id, out r);
+        <tr>
+            <td>@a.Course?.Name</td>
+            <td>@a.Title</td>
+            <td>@a.DueDate.ToString("d")</td>
+            <td>@a.MaxScore</td>
+            <td>@(r != null ? r.Score.ToString() : "—")</td>
+            <td>@r?.Feedback</td>
+        </tr>
+    }
+    </tbody>
+</table></div>

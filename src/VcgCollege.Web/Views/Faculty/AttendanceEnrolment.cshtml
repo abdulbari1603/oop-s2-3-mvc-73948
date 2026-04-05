@@ -1,0 +1,21 @@
+@model VcgCollege.Web.Data.Entities.CourseEnrolment
+@{
+    ViewData["Title"] = "Attendance";
+}
+<h1 class="h3 mb-3">Attendance</h1>
+<p class="text-muted">@Model.Student?.Name — @Model.Course?.Name</p>
+<p><a class="btn btn-primary" asp-action="CreateAttendance" asp-route-enrolmentId="@Model.Id">Add session</a></p>
+<div class="table-responsive vcg-table-wrap mb-3"><table class="table table-sm mb-0">
+    <thead><tr><th>Week</th><th>Date</th><th>Present</th></tr></thead>
+    <tbody>
+    @foreach (var a in Model.AttendanceRecords.OrderBy(x => x.WeekNumber))
+    {
+        <tr>
+            <td>@a.WeekNumber</td>
+            <td>@a.SessionDate.ToString("d")</td>
+            <td>@(a.Present ? "Yes" : "No")</td>
+        </tr>
+    }
+    </tbody>
+</table></div>
+<p><a asp-action="Attendance" asp-route-courseId="@Model.CourseId">Back</a></p>

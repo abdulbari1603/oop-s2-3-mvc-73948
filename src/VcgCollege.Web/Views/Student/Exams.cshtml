@@ -1,0 +1,47 @@
+@model List<VcgCollege.Web.Data.Entities.Exam>
+@{
+    ViewData["Title"] = "Exams";
+    var results = ViewBag.Results as Dictionary<int, VcgCollege.Web.Data.Entities.ExamResult>;
+}
+<h1 class="h3 mb-3">Exams</h1>
+<p class="text-muted">Provisional results stay hidden until your instructor or administrator releases them.</p>
+<div class="table-responsive vcg-table-wrap mb-3"><table class="table table-striped mb-0">
+    <thead><tr><th>Course</th><th>Exam</th><th>Date</th><th>Released</th><th>Your score</th><th>Grade</th></tr></thead>
+    <tbody>
+    @foreach (var e in Model)
+    {
+        VcgCollege.Web.Data.Entities.ExamResult? r = null;
+        results?.TryGetValue(e.Id, out r);
+        <tr>
+            <td>@e.Course?.Name</td>
+            <td>@e.Title</td>
+            <td>@e.Date.ToString("d")</td>
+            <td>@(e.ResultsReleased ? "Yes" : "No")</td>
+            <td>
+                @if (e.ResultsReleased && r != null)
+                {
+                    @r.Score
+                }
+                else if (!e.ResultsReleased)
+                {
+                    <span class="text-muted">Not released</span>
+                }
+                else
+                {
+                    <span>—</span>
+                }
+            </td>
+            <td>
+                @if (e.ResultsReleased && r != null)
+                {
+                    @r.Grade
+                }
+                else
+                {
+                    <span class="text-muted">—</span>
+                }
+            </td>
+        </tr>
+    }
+    </tbody>
+</table></div>

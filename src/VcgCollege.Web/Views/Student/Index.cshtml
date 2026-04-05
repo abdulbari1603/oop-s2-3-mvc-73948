@@ -1,0 +1,21 @@
+@model VcgCollege.Web.Data.Entities.StudentProfile
+@{
+    ViewData["Title"] = "Student portal";
+}
+<div class="d-flex flex-wrap align-items-start justify-content-between gap-3 mb-4">
+    <div>
+        <h1 class="vcg-page-title h3 mb-1">Hello, @Model.Name</h1>
+        <p class="vcg-page-lead mb-0">Your student portal &mdash; profile, coursework, and attendance.</p>
+    </div>
+    <div class="vcg-stat-pill text-center px-4 py-2">
+        <span class="d-block text-muted small text-uppercase fw-semibold vcg-kicker-tight">Active enrolments</span>
+        <span class="fs-4 fw-bold text-dark">@ViewBag.EnrolmentCount</span>
+    </div>
+</div>
+
+<div class="list-group vcg-nav-tiles mb-0">
+    <a class="list-group-item list-group-item-action" asp-action="Profile"><i class="bi bi-person-lines-fill" aria-hidden="true"></i>My profile</a>
+    <a class="list-group-item list-group-item-action" asp-action="Assignments"><i class="bi bi-journal-check" aria-hidden="true"></i>Assignments &amp; grades</a>
+    <a class="list-group-item list-group-item-action" asp-action="Exams"><i class="bi bi-clipboard-data" aria-hidden="true"></i>Exams</a>
+    <a class="list-group-item list-group-item-action" asp-action="Attendance"><i class="bi bi-calendar-week" aria-hidden="true"></i>Attendance</a>
+</div>

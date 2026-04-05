@@ -1,0 +1,23 @@
+@model IEnumerable<VcgCollege.Web.Data.Entities.Branch>
+@{
+    ViewData["Title"] = "Branches";
+}
+<h1 class="h3 mb-3">Branches</h1>
+<p><a class="btn btn-primary" asp-action="Create">Create branch</a></p>
+<div class="table-responsive vcg-table-wrap mb-3"><table class="table table-striped mb-0">
+    <thead><tr><th>Name</th><th>Address</th><th></th></tr></thead>
+    <tbody>
+    @foreach (var b in Model)
+    {
+        <tr>
+            <td>@b.Name</td>
+            <td>@b.Address</td>
+            <td class="text-end">
+                <a asp-action="Details" asp-route-id="@b.Id">Details</a> |
+                <a asp-action="Edit" asp-route-id="@b.Id">Edit</a> |
+                <a asp-action="Delete" asp-route-id="@b.Id">Delete</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table></div>

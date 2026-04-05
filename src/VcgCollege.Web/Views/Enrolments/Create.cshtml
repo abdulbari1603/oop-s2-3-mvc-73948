@@ -1,0 +1,33 @@
+@model VcgCollege.Web.Data.Entities.CourseEnrolment
+@{
+    ViewData["Title"] = "New enrolment";
+}
+<h1 class="h3 mb-3">New enrolment</h1>
+<form asp-action="Create" method="post">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <div class="mb-3">
+        <label class="form-label">Student</label>
+        <select asp-for="StudentProfileId" class="form-select" asp-items="ViewBag.StudentProfileId"></select>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Course</label>
+        <select asp-for="CourseId" class="form-select" asp-items="ViewBag.CourseId"></select>
+    </div>
+    <div class="mb-3">
+        <label asp-for="EnrolDate" class="form-label"></label>
+        <input asp-for="EnrolDate" class="form-control" type="date" />
+    </div>
+    <div class="mb-3">
+        <label asp-for="Status" class="form-label"></label>
+        <select asp-for="Status" class="form-select">
+            <option value="Active">Active</option>
+            <option value="Completed">Completed</option>
+            <option value="Withdrawn">Withdrawn</option>
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Save</button>
+    <a class="btn btn-secondary" asp-action="Index">Cancel</a>
+</form>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

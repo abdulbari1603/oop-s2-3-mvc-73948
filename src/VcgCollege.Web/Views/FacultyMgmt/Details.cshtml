@@ -1,0 +1,39 @@
+@model VcgCollege.Web.Data.Entities.FacultyProfile
+@{
+    ViewData["Title"] = "Faculty details";
+}
+<h1 class="h3 mb-3">@Model.Name</h1>
+<dl class="row">
+    <dt class="col-sm-2">Email</dt><dd class="col-sm-10">@Model.Email</dd>
+    <dt class="col-sm-2">Phone</dt><dd class="col-sm-10">@Model.Phone</dd>
+</dl>
+<h2 class="h5">Assigned courses</h2>
+<ul class="list-unstyled">
+@foreach (var a in Model.CourseAssignments)
+{
+    <li class="d-flex justify-content-between align-items-center border-bottom py-2">
+        <span>@a.Course?.Name</span>
+        <form asp-action="RemoveAssignment" method="post" class="d-inline">
+            @Html.AntiForgeryToken()
+            <input type="hidden" name="assignmentId" value="@a.Id" />
+            <input type="hidden" name="facultyId" value="@Model.Id" />
+            <button type="submit" class="btn btn-sm btn-outline-danger">Remove</button>
+        </form>
+    </li>
+}
+</ul>
+<h3 class="h6 mt-4">Assign course</h3>
+<form asp-action="AssignCourse" method="post" class="row g-2 align-items-end">
+    @Html.AntiForgeryToken()
+    <input type="hidden" name="facultyId" value="@Model.Id" />
+    <div class="col-auto">
+        <select name="courseId" class="form-select" asp-items="ViewBag.AssignCourseList"></select>
+    </div>
+    <div class="col-auto">
+        <button type="submit" class="btn btn-primary">Assign</button>
+    </div>
+</form>
+<p class="mt-3">
+    <a class="btn btn-primary" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
+    <a class="btn btn-secondary" asp-action="Index">Back</a>
+</p>

@@ -1,0 +1,31 @@
+@model List<VcgCollege.Web.Data.Entities.StudentProfile>
+@{
+    ViewData["Title"] = "Gradebook";
+    var assignment = (VcgCollege.Web.Data.Entities.Assignment)ViewBag.Assignment;
+    var existing = (Dictionary<int, VcgCollege.Web.Data.Entities.AssignmentResult>)ViewBag.Existing;
+}
+<h1 class="h3 mb-3">@assignment.Title</h1>
+<p class="text-muted">@assignment.Course?.Name — max @assignment.MaxScore</p>
+<div class="table-responsive vcg-table-wrap mb-3"><table class="table table-sm align-middle mb-0">
+    <thead><tr><th>Student</th><th>Score &amp; feedback</th></tr></thead>
+    <tbody>
+    @foreach (var s in Model)
+    {
+        existing.TryGetValue(s.Id, out var row);
+        <tr>
+            <td>@s.Name</td>
+            <td>
+                <form asp-action="SaveResult" method="post" class="d-flex gap-2 flex-wrap">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" name="assignmentId" value="@assignment.Id" />
+                    <input type="hidden" name="studentProfileId" value="@s.Id" />
+                    <input name="score" class="form-control form-control-sm" style="width:7rem" type="number" step="0.01" min="0" value="@(row?.Score.ToString() ?? "")" required />
+                    <input name="feedback" class="form-control form-control-sm flex-grow-1" style="min-width:12rem" value="@row?.Feedback" />
+                    <button type="submit" class="btn btn-sm btn-primary">Save</button>
+                </form>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table></div>
+<p><a asp-action="Course" asp-route-id="@assignment.CourseId">Back to course</a></p>

@@ -1,0 +1,11 @@
+@model VcgCollege.Web.Data.Entities.Assignment
+@{
+    ViewData["Title"] = "Delete assignment";
+}
+<h1 class="h3 mb-3">Delete assignment</h1>
+<p>Are you sure you want to delete <strong>@Model.Title</strong>? All saved grades for this assignment will be removed.</p>
+<form asp-action="Delete" method="post">
+    <input type="hidden" asp-for="Id" />
+    <button type="submit" class="btn btn-danger">Delete</button>
+    <a class="btn btn-secondary" asp-action="Course" asp-route-id="@Model.CourseId">Cancel</a>
+</form>

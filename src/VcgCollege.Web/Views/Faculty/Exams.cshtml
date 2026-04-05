@@ -1,0 +1,20 @@
+@model VcgCollege.Web.Data.Entities.Course
+@{
+    ViewData["Title"] = "Exams";
+}
+<h1 class="h3 mb-3">Exams — @Model.Name</h1>
+<div class="table-responsive vcg-table-wrap mb-3"><table class="table table-striped mb-0">
+    <thead><tr><th>Title</th><th>Date</th><th>Released to students</th><th></th></tr></thead>
+    <tbody>
+    @foreach (var e in Model.Exams.OrderBy(x => x.Date))
+    {
+        <tr>
+            <td>@e.Title</td>
+            <td>@e.Date.ToString("d")</td>
+            <td>@(e.ResultsReleased ? "Yes" : "No")</td>
+            <td class="text-end"><a asp-action="ExamResults" asp-route-id="@e.Id">Results</a></td>
+        </tr>
+    }
+    </tbody>
+</table></div>
+<p><a asp-action="Index">Back</a></p>

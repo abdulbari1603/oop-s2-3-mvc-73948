@@ -1,0 +1,22 @@
+@model List<VcgCollege.Web.Data.Entities.CourseEnrolment>
+@{
+    ViewData["Title"] = "Attendance";
+}
+<h1 class="h3 mb-3">My attendance</h1>
+@foreach (var e in Model)
+{
+    <h2 class="h5 mt-4">@e.Course?.Name</h2>
+    <div class="table-responsive vcg-table-wrap mb-3"><table class="table table-sm mb-0">
+        <thead><tr><th>Week</th><th>Date</th><th>Present</th></tr></thead>
+        <tbody>
+        @foreach (var a in e.AttendanceRecords.OrderBy(x => x.WeekNumber))
+        {
+            <tr>
+                <td>@a.WeekNumber</td>
+                <td>@a.SessionDate.ToString("d")</td>
+                <td>@(a.Present ? "Yes" : "No")</td>
+            </tr>
+        }
+        </tbody>
+    </table></div>
+}

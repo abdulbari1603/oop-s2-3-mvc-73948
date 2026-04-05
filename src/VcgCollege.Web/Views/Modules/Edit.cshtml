@@ -1,0 +1,33 @@
+@model VcgCollege.Web.Data.Entities.Module
+@{
+    ViewData["Title"] = "Edit module";
+}
+<h1 class="h3 mb-3">Edit module</h1>
+<form asp-action="Edit" method="post">
+    <input type="hidden" asp-for="Id" />
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <div class="mb-3">
+        <label class="form-label" for="CourseId">Course</label>
+        <select asp-for="CourseId" class="form-select" asp-items="ViewBag.CourseId"></select>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Title" class="form-label"></label>
+        <input asp-for="Title" class="form-control" />
+        <span asp-validation-for="Title" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Code" class="form-label"></label>
+        <input asp-for="Code" class="form-control" />
+        <span asp-validation-for="Code" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Credits" class="form-label"></label>
+        <input asp-for="Credits" class="form-control" type="number" min="0" />
+        <span asp-validation-for="Credits" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Save</button>
+    <a class="btn btn-secondary" asp-action="Index" asp-route-courseId="@Model.CourseId">Cancel</a>
+</form>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

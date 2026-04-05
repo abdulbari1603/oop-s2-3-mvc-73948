@@ -1,0 +1,7 @@
+@{
+    ViewData["Title"] = "Page not found";
+    var code = Context.Response.StatusCode;
+}
+<h1 class="display-6">@code</h1>
+<p class="lead">The page you requested could not be found.</p>
+<p><a class="btn btn-primary" asp-controller="Home" asp-action="Index">Home</a></p>

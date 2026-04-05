@@ -1,0 +1,33 @@
+@model VcgCollege.Web.Data.Entities.Course
+@{
+    ViewData["Title"] = "Exams — " + Model.Name;
+}
+<h1 class="h3 mb-3">@Model.Name</h1>
+<p>
+    <a class="btn btn-primary" asp-action="Create" asp-route-courseId="@Model.Id">New exam</a>
+    <a class="btn btn-secondary" asp-action="Index">All courses</a>
+</p>
+<div class="table-responsive vcg-table-wrap mb-3"><table class="table table-striped mb-0">
+    <thead><tr><th>Title</th><th>Date</th><th>Max</th><th>Released</th><th></th></tr></thead>
+    <tbody>
+    @foreach (var e in Model.Exams.OrderBy(x => x.Date))
+    {
+        <tr>
+            <td>@e.Title</td>
+            <td>@e.Date.ToString("d")</td>
+            <td>@e.MaxScore</td>
+            <td>@(e.ResultsReleased ? "Yes" : "No")</td>
+            <td class="text-end text-nowrap">
+                <a asp-action="Results" asp-route-id="@e.Id">Results</a> |
+                <a asp-action="Edit" asp-route-id="@e.Id">Edit</a> |
+                <a asp-action="Delete" asp-route-id="@e.Id" class="text-danger">Delete</a> |
+                <form asp-action="ToggleRelease" method="post" class="d-inline">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" name="id" value="@e.Id" />
+                    <button type="submit" class="btn btn-link btn-sm p-0">Toggle release</button>
+                </form>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table></div>

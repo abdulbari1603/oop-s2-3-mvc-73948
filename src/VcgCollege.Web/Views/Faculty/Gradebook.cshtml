@@ -1,0 +1,20 @@
+@model VcgCollege.Web.Data.Entities.Course
+@{
+    ViewData["Title"] = "Gradebook";
+}
+<h1 class="h3 mb-3">@Model.Name</h1>
+<div class="table-responsive vcg-table-wrap mb-3"><table class="table table-striped mb-0">
+    <thead><tr><th>Assignment</th><th>Due</th><th>Max</th><th></th></tr></thead>
+    <tbody>
+    @foreach (var a in Model.Assignments.OrderBy(x => x.DueDate))
+    {
+        <tr>
+            <td>@a.Title</td>
+            <td>@a.DueDate.ToString("d")</td>
+            <td>@a.MaxScore</td>
+            <td class="text-end"><a asp-action="AssignmentResults" asp-route-id="@a.Id">Enter grades</a></td>
+        </tr>
+    }
+    </tbody>
+</table></div>
+<p><a asp-action="Index">Back</a></p>

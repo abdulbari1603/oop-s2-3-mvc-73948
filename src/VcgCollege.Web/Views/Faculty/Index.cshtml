@@ -1,0 +1,33 @@
+@model List<VcgCollege.Web.Data.Entities.Course>
+@{
+    ViewData["Title"] = "Faculty dashboard";
+}
+<div class="mb-4">
+    <h1 class="vcg-page-title h3">My courses</h1>
+    <p class="vcg-page-lead mb-0">Select a course to manage students, grades, attendance, and exams.</p>
+</div>
+
+<div class="list-group">
+@foreach (var c in Model)
+{
+    <div class="list-group-item vcg-course-row d-flex justify-content-between align-items-center flex-wrap gap-3">
+        <div class="d-flex align-items-center gap-2">
+            <span class="vcg-course-dot rounded-circle flex-shrink-0" aria-hidden="true"></span>
+            <div>
+                <strong class="d-block">@c.Name</strong>
+                <span class="text-muted small">@c.Branch?.Name</span>
+            </div>
+        </div>
+        <div class="btn-group btn-group-sm">
+            <a class="btn btn-outline-primary" asp-action="Students" asp-route-courseId="@c.Id"><i class="bi bi-people me-1"></i>Students</a>
+            <a class="btn btn-outline-primary" asp-action="Gradebook" asp-route-courseId="@c.Id"><i class="bi bi-table me-1"></i>Gradebook</a>
+            <a class="btn btn-outline-primary" asp-action="Attendance" asp-route-courseId="@c.Id"><i class="bi bi-calendar-check me-1"></i>Attendance</a>
+            <a class="btn btn-outline-primary" asp-action="Exams" asp-route-courseId="@c.Id"><i class="bi bi-clipboard2-data me-1"></i>Exams</a>
+        </div>
+    </div>
+}
+</div>
+@if (!Model.Any())
+{
+    <p class="text-muted mt-3 mb-0">No course assignments yet.</p>
+}

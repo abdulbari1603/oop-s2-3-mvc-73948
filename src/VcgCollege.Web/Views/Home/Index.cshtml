@@ -1,0 +1,100 @@
+@{
+    ViewData["Title"] = "Home";
+}
+<div class="vcg-hero mb-4">
+    <div class="row align-items-center g-4">
+        <div class="col-lg-7">
+            <p class="text-uppercase small fw-semibold mb-2 opacity-75 letter-spacing">Student &amp; course management</p>
+            <h1 class="display-5 mb-3">Welcome to VcgCollege</h1>
+            <p class="lead mb-4">
+                Registration, attendance, assignments, and exams with secure role-based access for administrators, faculty, and students.
+            </p>
+            @if (User.Identity?.IsAuthenticated != true)
+            {
+                <div class="d-flex flex-wrap gap-2 align-items-center">
+                    <a class="btn btn-light btn-lg" asp-controller="Account" asp-action="Login"><i class="bi bi-box-arrow-in-right me-2"></i>Log in</a>
+                    <span class="small opacity-75">Demo accounts are listed in README.md.</span>
+                </div>
+            }
+            else
+            {
+                @if (User.IsInRole(RoleNames.Administrator))
+                {
+                    <a class="btn btn-light btn-lg" asp-controller="AdminHome" asp-action="Index"><i class="bi bi-speedometer2 me-2"></i>Administration</a>
+                }
+                else if (User.IsInRole(RoleNames.Faculty))
+                {
+                    <a class="btn btn-light btn-lg" asp-controller="Faculty" asp-action="Index"><i class="bi bi-person-video3 me-2"></i>Faculty dashboard</a>
+                }
+                else if (User.IsInRole(RoleNames.Student))
+                {
+                    <a class="btn btn-light btn-lg" asp-controller="Student" asp-action="Index"><i class="bi bi-person-badge me-2"></i>Student portal</a>
+                }
+            }
+        </div>
+        <div class="col-lg-5 d-none d-lg-block">
+            <div class="row g-2 text-center text-lg-start">
+                <div class="col-6">
+                    <div class="vcg-hero-stat rounded-3 p-3">
+                        <i class="bi bi-people fs-3 d-block mb-2 opacity-90"></i>
+                        <span class="small fw-semibold">Students &amp; staff</span>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="vcg-hero-stat rounded-3 p-3">
+                        <i class="bi bi-journal-check fs-3 d-block mb-2 opacity-90"></i>
+                        <span class="small fw-semibold">Attendance &amp; grades</span>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="vcg-hero-stat rounded-3 p-3">
+                        <i class="bi bi-file-earmark-text fs-3 d-block mb-2 opacity-90"></i>
+                        <span class="small fw-semibold">Assignments</span>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="vcg-hero-stat rounded-3 p-3">
+                        <i class="bi bi-clipboard-data fs-3 d-block mb-2 opacity-90"></i>
+                        <span class="small fw-semibold">Exams</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row g-3 mb-2">
+    <div class="col-md-4">
+        <div class="vcg-card h-100 p-4">
+            <div class="d-flex align-items-start gap-3">
+                <div class="vcg-card-icon mb-0 flex-shrink-0"><i class="bi bi-shield-lock" aria-hidden="true"></i></div>
+                <div>
+                    <h2 class="h6 fw-bold text-dark mb-2">Role-based access</h2>
+                    <p class="small text-muted mb-0">Administrators, faculty, and students each see tools suited to their responsibilities.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="vcg-card h-100 p-4">
+            <div class="d-flex align-items-start gap-3">
+                <div class="vcg-card-icon mb-0 flex-shrink-0"><i class="bi bi-diagram-3" aria-hidden="true"></i></div>
+                <div>
+                    <h2 class="h6 fw-bold text-dark mb-2">Multi-branch</h2>
+                    <p class="small text-muted mb-0">Courses and people are organised across college branches in one coherent system.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="vcg-card h-100 p-4">
+            <div class="d-flex align-items-start gap-3">
+                <div class="vcg-card-icon mb-0 flex-shrink-0"><i class="bi bi-database" aria-hidden="true"></i></div>
+                <div>
+                    <h2 class="h6 fw-bold text-dark mb-2">Built on ASP.NET Core</h2>
+                    <p class="small text-muted mb-0">EF Core, SQLite, and Identity underpin a maintainable MVC application.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

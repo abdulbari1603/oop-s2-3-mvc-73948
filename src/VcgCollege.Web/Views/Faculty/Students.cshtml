@@ -1,0 +1,22 @@
+@model List<VcgCollege.Web.Data.Entities.CourseEnrolment>
+@{
+    ViewData["Title"] = "Students";
+    var courseName = ViewBag.CourseName as string;
+}
+<h1 class="h3 mb-3">Students — @courseName</h1>
+<p class="text-muted">Contact details for students you teach on this course.</p>
+<div class="table-responsive vcg-table-wrap mb-3"><table class="table table-striped mb-0">
+    <thead><tr><th>Name</th><th>Email</th><th>Phone</th><th>Address</th></tr></thead>
+    <tbody>
+    @foreach (var e in Model)
+    {
+        <tr>
+            <td>@e.Student?.Name</td>
+            <td>@e.Student?.Email</td>
+            <td>@e.Student?.Phone</td>
+            <td>@e.Student?.Address</td>
+        </tr>
+    }
+    </tbody>
+</table></div>
+<p><a asp-action="Index">Back</a></p>

@@ -1,0 +1,38 @@
+@model IEnumerable<VcgCollege.Web.Data.Entities.CourseEnrolment>
+@{
+    ViewData["Title"] = "Enrolments";
+}
+<h1 class="h3 mb-3">Enrolments</h1>
+<form method="get" class="row g-2 align-items-end mb-3">
+    <div class="col-auto">
+        <label class="form-label">Student</label>
+        <select name="studentId" class="form-select" asp-items="ViewBag.StudentFilter">
+            <option value="">All</option>
+        </select>
+    </div>
+    <div class="col-auto">
+        <label class="form-label">Course</label>
+        <select name="courseId" class="form-select" asp-items="ViewBag.CourseFilter">
+            <option value="">All</option>
+        </select>
+    </div>
+    <div class="col-auto">
+        <button type="submit" class="btn btn-outline-secondary">Filter</button>
+    </div>
+</form>
+<p><a class="btn btn-primary" asp-action="Create">New enrolment</a></p>
+<div class="table-responsive vcg-table-wrap mb-3"><table class="table table-striped mb-0">
+    <thead><tr><th>Student</th><th>Course</th><th>Date</th><th>Status</th><th></th></tr></thead>
+    <tbody>
+    @foreach (var e in Model)
+    {
+        <tr>
+            <td>@e.Student?.Name</td>
+            <td>@e.Course?.Name</td>
+            <td>@e.EnrolDate.ToString("d")</td>
+            <td>@e.Status</td>
+            <td class="text-end"><a asp-action="Edit" asp-route-id="@e.Id">Edit</a></td>
+        </tr>
+    }
+    </tbody>
+</table></div>

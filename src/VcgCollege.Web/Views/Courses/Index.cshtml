@@ -1,0 +1,25 @@
+@model IEnumerable<VcgCollege.Web.Data.Entities.Course>
+@{
+    ViewData["Title"] = "Courses";
+}
+<h1 class="h3 mb-3">Courses</h1>
+<p><a class="btn btn-primary" asp-action="Create">Create course</a></p>
+<div class="table-responsive vcg-table-wrap mb-3"><table class="table table-striped mb-0">
+    <thead><tr><th>Name</th><th>Branch</th><th>Start</th><th>End</th><th></th></tr></thead>
+    <tbody>
+    @foreach (var c in Model)
+    {
+        <tr>
+            <td>@c.Name</td>
+            <td>@c.Branch?.Name</td>
+            <td>@c.StartDate.ToString("d")</td>
+            <td>@c.EndDate.ToString("d")</td>
+            <td class="text-end">
+                <a asp-action="Details" asp-route-id="@c.Id">Details</a> |
+                <a asp-action="Edit" asp-route-id="@c.Id">Edit</a> |
+                <a asp-action="Delete" asp-route-id="@c.Id">Delete</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table></div>

@@ -1,0 +1,22 @@
+## Build
+[Bb]in/
+[Oo]bj/
+[Dd]ebug/
+[Rr]elease/
+*.user
+*.suo
+*.cache
+
+## SQLite local DB
+*.db
+*.db-shm
+*.db-wal
+
+## IDE
+.vs/
+.idea/
+*.swp
+
+## OS
+Thumbs.db
+.DS_Store

@@ -1,0 +1,101 @@
+@{
+    ViewData["Title"] = "Administration";
+}
+
+<div class="mb-4">
+    <h1 class="vcg-page-title h3">Administration</h1>
+    <p class="vcg-page-lead mb-0">Manage branches, courses, people, attendance, assignments, and exams from one dashboard.</p>
+</div>
+
+<div class="row g-3">
+    <div class="col-md-4">
+        <div class="card h-100 vcg-card border-0">
+            <div class="card-body">
+                <div class="vcg-card-icon"><i class="bi bi-geo-alt" aria-hidden="true"></i></div>
+                <h2 class="card-title">Branches</h2>
+                <p class="card-text text-muted small">Campus locations and contact details.</p>
+                <a class="btn btn-primary" asp-controller="Branches" asp-action="Index">Open</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card h-100 vcg-card border-0">
+            <div class="card-body">
+                <div class="vcg-card-icon"><i class="bi bi-book" aria-hidden="true"></i></div>
+                <h2 class="card-title">Courses</h2>
+                <p class="card-text text-muted small">Schedules and branch assignment.</p>
+                <a class="btn btn-primary" asp-controller="Courses" asp-action="Index">Open</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card h-100 vcg-card border-0">
+            <div class="card-body">
+                <div class="vcg-card-icon"><i class="bi bi-layers" aria-hidden="true"></i></div>
+                <h2 class="card-title">Modules</h2>
+                <p class="card-text text-muted small">Optional modules linked to courses.</p>
+                <a class="btn btn-primary" asp-controller="Modules" asp-action="Index">Open</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card h-100 vcg-card border-0">
+            <div class="card-body">
+                <div class="vcg-card-icon"><i class="bi bi-person-vcard" aria-hidden="true"></i></div>
+                <h2 class="card-title">Students</h2>
+                <p class="card-text text-muted small">Profiles and linked accounts.</p>
+                <a class="btn btn-primary" asp-controller="Students" asp-action="Index">Open</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card h-100 vcg-card border-0">
+            <div class="card-body">
+                <div class="vcg-card-icon"><i class="bi bi-person-workspace" aria-hidden="true"></i></div>
+                <h2 class="card-title">Faculty</h2>
+                <p class="card-text text-muted small">Staff profiles and course assignments.</p>
+                <a class="btn btn-primary" asp-controller="FacultyMgmt" asp-action="Index">Open</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card h-100 vcg-card border-0">
+            <div class="card-body">
+                <div class="vcg-card-icon"><i class="bi bi-person-plus" aria-hidden="true"></i></div>
+                <h2 class="card-title">Enrolments</h2>
+                <p class="card-text text-muted small">Enrol students on courses.</p>
+                <a class="btn btn-primary" asp-controller="Enrolments" asp-action="Index">Open</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card h-100 vcg-card border-0">
+            <div class="card-body">
+                <div class="vcg-card-icon"><i class="bi bi-calendar-check" aria-hidden="true"></i></div>
+                <h2 class="card-title">Attendance</h2>
+                <p class="card-text text-muted small">Weekly session records.</p>
+                <a class="btn btn-primary" asp-controller="AttendanceAdmin" asp-action="Index">Open</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card h-100 vcg-card border-0">
+            <div class="card-body">
+                <div class="vcg-card-icon"><i class="bi bi-journal-text" aria-hidden="true"></i></div>
+                <h2 class="card-title">Assignments</h2>
+                <p class="card-text text-muted small">Tasks and grades across courses.</p>
+                <a class="btn btn-primary" asp-controller="AssignmentsAdmin" asp-action="Index">Open</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card h-100 vcg-card border-0">
+            <div class="card-body">
+                <div class="vcg-card-icon"><i class="bi bi-clipboard2-pulse" aria-hidden="true"></i></div>
+                <h2 class="card-title">Exams</h2>
+                <p class="card-text text-muted small">Exams, results, and release control.</p>
+                <a class="btn btn-primary" asp-controller="ExamsAdmin" asp-action="Index">Open</a>
+            </div>
+        </div>
+    </div>
+</div>

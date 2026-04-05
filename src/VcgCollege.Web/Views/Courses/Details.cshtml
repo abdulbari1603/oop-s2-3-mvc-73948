@@ -1,0 +1,31 @@
+@model VcgCollege.Web.Data.Entities.Course
+@{
+    ViewData["Title"] = "Course details";
+}
+<h1 class="h3 mb-3">@Model.Name</h1>
+<dl class="row">
+    <dt class="col-sm-2">Branch</dt>
+    <dd class="col-sm-10">@Model.Branch?.Name</dd>
+    <dt class="col-sm-2">Start</dt>
+    <dd class="col-sm-10">@Model.StartDate.ToString("d")</dd>
+    <dt class="col-sm-2">End</dt>
+    <dd class="col-sm-10">@Model.EndDate.ToString("d")</dd>
+</dl>
+<h2 class="h5">Modules</h2>
+<ul>
+@foreach (var m in Model.Modules.OrderBy(x => x.Title))
+{
+    <li>@m.Title (@m.Code) — @m.Credits cr</li>
+}
+</ul>
+<h2 class="h5">Assigned faculty</h2>
+<ul>
+@foreach (var a in Model.FacultyAssignments)
+{
+    <li>@a.Faculty.Name</li>
+}
+</ul>
+<p>
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Edit</a>
+    <a asp-action="Index" class="btn btn-secondary">Back</a>
+</p>

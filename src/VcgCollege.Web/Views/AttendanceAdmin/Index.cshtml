@@ -1,0 +1,31 @@
+@model IEnumerable<VcgCollege.Web.Data.Entities.CourseEnrolment>
+@{
+    ViewData["Title"] = "Attendance (admin)";
+}
+<h1 class="h3 mb-3">Attendance</h1>
+<form method="get" class="row g-2 align-items-end mb-3">
+    <div class="col-auto">
+        <label class="form-label">Course</label>
+        <select name="courseId" class="form-select" asp-items="ViewBag.CourseFilter">
+            <option value="">All</option>
+        </select>
+    </div>
+    <div class="col-auto">
+        <button type="submit" class="btn btn-outline-secondary">Filter</button>
+    </div>
+</form>
+<div class="table-responsive vcg-table-wrap mb-3"><table class="table table-striped mb-0">
+    <thead><tr><th>Student</th><th>Course</th><th></th></tr></thead>
+    <tbody>
+    @foreach (var e in Model)
+    {
+        <tr>
+            <td>@e.Student?.Name</td>
+            <td>@e.Course?.Name</td>
+            <td class="text-end">
+                <a asp-action="ForEnrolment" asp-route-id="@e.Id">View / add</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table></div>

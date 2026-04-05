@@ -1,0 +1,11 @@
+@model VcgCollege.Web.Data.Entities.Module
+@{
+    ViewData["Title"] = "Delete module";
+}
+<h1 class="h3 mb-3">Delete module</h1>
+<p>Delete <strong>@Model.Title</strong> from @Model.Course?.Name?</p>
+<form asp-action="Delete" method="post">
+    <input type="hidden" asp-for="Id" />
+    <button type="submit" class="btn btn-danger">Delete</button>
+    <a class="btn btn-secondary" asp-action="Index" asp-route-courseId="@Model.CourseId">Cancel</a>
+</form>
