@@ -33,6 +33,7 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.Cookie.SecurePolicy = CookieSecurePolicy.SameAsRequest;
 });
 
+builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddControllersWithViews();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<IUserContextAccessor, UserContextAccessor>();
@@ -47,6 +48,7 @@ if (!app.Environment.IsDevelopment())
 else
 {
     app.UseDeveloperExceptionPage();
+    app.UseMigrationsEndPoint();
 }
 
 app.UseStatusCodePagesWithReExecute("/Home/NotFound", "?statusCode={0}");
