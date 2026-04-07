@@ -14,25 +14,47 @@
 <body class="d-flex flex-column min-vh-100 vcg-app">
     <header>
         <nav class="navbar navbar-expand-lg navbar-dark vcg-navbar mb-0">
-            <div class="container">
-                <a class="navbar-brand d-flex align-items-center gap-2" asp-controller="Home" asp-action="Index">
-                    <i class="bi bi-mortarboard-fill text-info" aria-hidden="true"></i>
-                    <span>Vcg<span>College</span></span>
-                </a>
+            <div class="container-fluid px-3 px-xl-4">
+                @if (User.Identity?.IsAuthenticated == true && User.IsInRole(RoleNames.Faculty) && !User.IsInRole(RoleNames.Administrator))
+                {
+                    <a class="navbar-brand d-flex align-items-center gap-2" asp-controller="Faculty" asp-action="Index">
+                        <i class="bi bi-mortarboard-fill text-info" aria-hidden="true"></i>
+                        <span>Vcg<span>College</span></span>
+                    </a>
+                }
+                else
+                {
+                    <a class="navbar-brand d-flex align-items-center gap-2" asp-controller="Home" asp-action="Index">
+                        <i class="bi bi-mortarboard-fill text-info" aria-hidden="true"></i>
+                        <span>Vcg<span>College</span></span>
+                    </a>
+                }
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav"
                         aria-controls="nav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="collapse navbar-collapse" id="nav">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-3">
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Home" asp-action="Index"><i class="bi bi-house-door me-1"></i>Home</a>
-                        </li>
+                <div class="collapse navbar-collapse flex-lg-nowrap align-items-lg-center" id="nav">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-2 flex-lg-nowrap">
+                        @if (User.Identity?.IsAuthenticated != true || !User.IsInRole(RoleNames.Faculty) || User.IsInRole(RoleNames.Administrator))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Home" asp-action="Index"><i class="bi bi-house-door me-1"></i>Home</a>
+                            </li>
+                        }
                         @if (User.Identity?.IsAuthenticated == true)
                         {
                             @if (User.IsInRole(RoleNames.Administrator))
                             {
-                                <li class="nav-item"><a class="nav-link" asp-controller="AdminHome" asp-action="Index"><i class="bi bi-speedometer2 me-1"></i>Admin</a></li>
+                                <li class="nav-item"><a class="nav-link" asp-controller="AdminHome" asp-action="Index"><i class="bi bi-speedometer2 me-1"></i>Dashboard</a></li>
+                                <li class="nav-item"><a class="nav-link" asp-controller="Branches" asp-action="Index"><i class="bi bi-geo-alt me-1"></i>Branches</a></li>
+                                <li class="nav-item"><a class="nav-link" asp-controller="Courses" asp-action="Index"><i class="bi bi-book me-1"></i>Courses</a></li>
+                                <li class="nav-item"><a class="nav-link" asp-controller="Modules" asp-action="Index"><i class="bi bi-layers me-1"></i>Modules</a></li>
+                                <li class="nav-item"><a class="nav-link" asp-controller="Students" asp-action="Index"><i class="bi bi-person-vcard me-1"></i>Students</a></li>
+                                <li class="nav-item"><a class="nav-link" asp-controller="FacultyMgmt" asp-action="Index"><i class="bi bi-person-workspace me-1"></i>Faculty</a></li>
+                                <li class="nav-item"><a class="nav-link" asp-controller="Enrolments" asp-action="Index"><i class="bi bi-person-plus me-1"></i>Enrolments</a></li>
+                                <li class="nav-item"><a class="nav-link" asp-controller="AttendanceAdmin" asp-action="Index"><i class="bi bi-calendar-check me-1"></i>Attendance</a></li>
+                                <li class="nav-item"><a class="nav-link" asp-controller="AssignmentsAdmin" asp-action="Index"><i class="bi bi-journal-text me-1"></i>Assignments</a></li>
+                                <li class="nav-item"><a class="nav-link" asp-controller="ExamsAdmin" asp-action="Index"><i class="bi bi-clipboard2-pulse me-1"></i>Exams</a></li>
                             }
                             @if (User.IsInRole(RoleNames.Faculty))
                             {
@@ -40,16 +62,20 @@
                             }
                             @if (User.IsInRole(RoleNames.Student))
                             {
-                                <li class="nav-item"><a class="nav-link" asp-controller="Student" asp-action="Index"><i class="bi bi-person-badge me-1"></i>Student</a></li>
+                                <li class="nav-item"><a class="nav-link" asp-controller="Student" asp-action="Index"><i class="bi bi-person-badge me-1"></i>Portal</a></li>
+                                <li class="nav-item"><a class="nav-link" asp-controller="Student" asp-action="Profile"><i class="bi bi-person-lines-fill me-1"></i>My profile</a></li>
+                                <li class="nav-item"><a class="nav-link" asp-controller="Student" asp-action="Assignments"><i class="bi bi-journal-check me-1"></i>Assignments &amp; grades</a></li>
+                                <li class="nav-item"><a class="nav-link" asp-controller="Student" asp-action="Exams"><i class="bi bi-clipboard-data me-1"></i>Exams</a></li>
+                                <li class="nav-item"><a class="nav-link" asp-controller="Student" asp-action="Attendance"><i class="bi bi-calendar-week me-1"></i>Attendance</a></li>
                             }
                         }
                     </ul>
                     <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-2">
                         @if (User.Identity?.IsAuthenticated == true)
                         {
-                            <li class="nav-item">
+                            <li class="nav-item text-lg-end">
                                 <span class="navbar-text text-white-50 small d-none d-lg-inline"><i class="bi bi-person-circle me-1"></i></span>
-                                <span class="navbar-text text-white-50 small">@User.Identity?.Name</span>
+                                <span class="navbar-text text-white-50 small vcg-navbar-user d-inline-block">@User.Identity?.Name</span>
                             </li>
                             <li class="nav-item">
                                 <form asp-controller="Account" asp-action="Logout" method="post" class="d-inline">

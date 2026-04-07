@@ -1,5 +1,52 @@
 @{
     ViewData["Title"] = "Home";
+
+    string heroStudentsStaffUrl;
+    string heroAttendanceGradesUrl;
+    string heroAssignmentsUrl;
+    string heroExamsUrl;
+
+    if (User.Identity?.IsAuthenticated == true)
+    {
+        if (User.IsInRole(RoleNames.Administrator))
+        {
+            heroStudentsStaffUrl = Url.Action("Index", "Students")!;
+            heroAttendanceGradesUrl = Url.Action("Index", "AttendanceAdmin")!;
+            heroAssignmentsUrl = Url.Action("Index", "AssignmentsAdmin")!;
+            heroExamsUrl = Url.Action("Index", "ExamsAdmin")!;
+        }
+        else if (User.IsInRole(RoleNames.Faculty))
+        {
+            var facultyHub = Url.Action("Index", "Faculty")!;
+            heroStudentsStaffUrl = facultyHub;
+            heroAttendanceGradesUrl = facultyHub;
+            heroAssignmentsUrl = facultyHub;
+            heroExamsUrl = facultyHub;
+        }
+        else if (User.IsInRole(RoleNames.Student))
+        {
+            heroStudentsStaffUrl = Url.Action("Profile", "Student")!;
+            heroAttendanceGradesUrl = Url.Action("Assignments", "Student")!;
+            heroAssignmentsUrl = Url.Action("Assignments", "Student")!;
+            heroExamsUrl = Url.Action("Exams", "Student")!;
+        }
+        else
+        {
+            var login = Url.Action("Login", "Account")!;
+            heroStudentsStaffUrl = login;
+            heroAttendanceGradesUrl = login;
+            heroAssignmentsUrl = login;
+            heroExamsUrl = login;
+        }
+    }
+    else
+    {
+        var login = Url.Action("Login", "Account")!;
+        heroStudentsStaffUrl = login;
+        heroAttendanceGradesUrl = login;
+        heroAssignmentsUrl = login;
+        heroExamsUrl = login;
+    }
 }
 <div class="vcg-hero mb-4">
     <div class="row align-items-center g-4">
@@ -35,28 +82,28 @@
         <div class="col-lg-5 d-none d-lg-block">
             <div class="row g-2 text-center text-lg-start">
                 <div class="col-6">
-                    <div class="vcg-hero-stat rounded-3 p-3">
+                    <a class="vcg-hero-stat rounded-3 p-3 text-decoration-none text-white d-block h-100" href="@heroStudentsStaffUrl">
                         <i class="bi bi-people fs-3 d-block mb-2 opacity-90"></i>
                         <span class="small fw-semibold">Students &amp; staff</span>
-                    </div>
+                    </a>
                 </div>
                 <div class="col-6">
-                    <div class="vcg-hero-stat rounded-3 p-3">
+                    <a class="vcg-hero-stat rounded-3 p-3 text-decoration-none text-white d-block h-100" href="@heroAttendanceGradesUrl">
                         <i class="bi bi-journal-check fs-3 d-block mb-2 opacity-90"></i>
                         <span class="small fw-semibold">Attendance &amp; grades</span>
-                    </div>
+                    </a>
                 </div>
                 <div class="col-6">
-                    <div class="vcg-hero-stat rounded-3 p-3">
+                    <a class="vcg-hero-stat rounded-3 p-3 text-decoration-none text-white d-block h-100" href="@heroAssignmentsUrl">
                         <i class="bi bi-file-earmark-text fs-3 d-block mb-2 opacity-90"></i>
                         <span class="small fw-semibold">Assignments</span>
-                    </div>
+                    </a>
                 </div>
                 <div class="col-6">
-                    <div class="vcg-hero-stat rounded-3 p-3">
+                    <a class="vcg-hero-stat rounded-3 p-3 text-decoration-none text-white d-block h-100" href="@heroExamsUrl">
                         <i class="bi bi-clipboard-data fs-3 d-block mb-2 opacity-90"></i>
                         <span class="small fw-semibold">Exams</span>
-                    </div>
+                    </a>
                 </div>
             </div>
         </div>

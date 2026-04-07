@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using VcgCollege.Web.Authorization;
 using VcgCollege.Web.Models;
 
 namespace VcgCollege.Web.Controllers;
@@ -18,6 +19,11 @@ public class HomeController : Controller
 
     public IActionResult Index()
     {
+        if (User.Identity?.IsAuthenticated == true
+            && User.IsInRole(RoleNames.Faculty)
+            && !User.IsInRole(RoleNames.Administrator))
+            return RedirectToAction(nameof(FacultyController.Index), "Faculty");
+
         return View();
     }
 
